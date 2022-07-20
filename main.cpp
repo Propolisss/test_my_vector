@@ -1,5 +1,8 @@
 #include <iostream>
 #include <vector>
+#define _CRTDBG_MAP_ALLOC
+#include <cstdlib>
+#include <crtdbg.h>
 
 
 
@@ -16,6 +19,7 @@ public:
 
 	MyVector(T _size)
 	{
+		delete[] this->ptr;
 		this->ptr = new T[_size];
 		this->size = _size;
 		for (size_t i = 0; i < this->size; i++)
@@ -40,26 +44,27 @@ public:
 	{
 		this->ptr = _other.ptr;
 		this->size = _other.size;
-		delete[] _other.ptr;
-		_other.ptr = nullptr;
 	}
 
 
 
 	~MyVector()
 	{
+		this->size = 0;
 		delete[] this->ptr;
 		this->ptr = nullptr;
 	}
 
 	void push_back(const T _value)
 	{
-		T* new_ptr = new T[size + 1];
+		T* new_ptr = new T[this->size + 1];
 
 		for (size_t i = 0; i < size; i++)
 		{
 			new_ptr[i] = this->ptr[i];
 		}
+		
+		delete[] this->ptr;
 
 		new_ptr[size] = _value;
 		this->size++;
@@ -138,6 +143,13 @@ public:
 		return true;
 	}
 
+	void Clear()
+	{
+		delete[] this->ptr;
+		this->ptr = nullptr;
+		this->size = 0;
+	}
+
 private:
 	T* ptr;
 	size_t size;
@@ -146,24 +158,14 @@ private:
 
 
 
-
-
-
-
-
 int main()
 {
-	MyVector<int> nums2(5);
-	std::vector<int> nnums;
 
 
-	for (size_t i = 0; i < nums2.Size(); i++)
-	{
-		nums2[i] = i;
-	}
 
-	MyVector<int> nums(nums2);
-	nums == nums2;
 
+
+
+	_CrtDumpMemoryLeaks();
 	return 0;
 }
