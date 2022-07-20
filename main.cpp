@@ -84,10 +84,18 @@ public:
 	}
 
 
-	T& operator [](const T _index)
+	T& operator [](T _index)
 	{
+		std::cout << "not const\n";
 		return this->ptr[_index];
 	}
+
+	const T& operator [](T _index) const
+	{
+		std::cout << "const\n";
+		return this->ptr[_index];
+	}
+
 
 	MyVector& operator = (const MyVector& _other)
 	{
@@ -161,9 +169,13 @@ private:
 int main()
 {
 
+	MyVector<int> nums;
 
+	nums.push_back(5);
 
+	std::cout << nums[0] << '\n';
 
+	nums[0] = 3;
 
 
 	_CrtDumpMemoryLeaks();
