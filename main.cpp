@@ -6,7 +6,6 @@
 
 
 
-
 template <class T>
 class MyVector
 {
@@ -44,6 +43,9 @@ public:
 	{
 		this->ptr = _other.ptr;
 		this->size = _other.size;
+		delete[] _other.ptr;
+		_other.ptr = nullptr;
+		_other.size = 0;
 	}
 
 
@@ -176,6 +178,10 @@ int main()
 	std::cout << nums[0] << '\n';
 
 	nums[0] = 3;
+
+
+
+
 
 
 	_CrtDumpMemoryLeaks();
