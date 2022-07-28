@@ -73,14 +73,14 @@ public:
 		this->ptr = new_ptr;
 	}
 
-	bool is_empty()
+	bool is_empty() const
 	{
 		return this->size == 0;
 	}
 
 
 
-	size_t Size()
+	size_t Size() const
 	{
 		return this->size;
 	}
